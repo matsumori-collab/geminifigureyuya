@@ -307,8 +307,12 @@
                     resultGrid.appendChild(resultElement);
                 } else {
                     hasErrors = true;
-                    console.error(`Image ${index + 1} failed:`, result.reason);
-                    errorMessages.push(`画像 ${index + 1} の生成に失敗しました: ${result.reason.message || result.reason}`); 
+                    // エラーメッセージの抽出を堅牢化
+                    const reason = result.reason;
+                    const errorMsg = reason ? (reason.message || String(reason)) : '不明なエラー';
+                    
+                    console.error(`Image ${index + 1} failed:`, reason);
+                    errorMessages.push(`画像 ${index + 1} の生成に失敗しました: ${errorMsg}`); 
                     
                     // エラーメッセージが表示されても、他の結果カードのレイアウトを維持するために、エラー用のプレースホルダーカードを追加
                     const errorCard = createErrorCard(index);
@@ -367,7 +371,8 @@
             try {
                 result = await response.json();
             } catch (e) {
-                 throw new Error('APIからの応答が不正です。');
+                 // JSONパースエラーは致命的なAPIエラーとして扱う
+                 throw new Error('APIからの応答が不正な形式でした。');
             }
 
             if (!response.ok || result.error) {
@@ -381,7 +386,7 @@
             return generatedBase64Data;
         }
 
-        // --- (新規追加) テキスト生成リトライ関数 ---
+        // --- (修正済み) テキスト生成リトライ関数 ---
         async function generateTextWithRetryInternal(originalBase64Data) {
             const MAX_RETRIES = 3;
             for (let i = 0; i < MAX_RETRIES; i++) {
@@ -435,7 +440,7 @@
             try {
                 result = await response.json();
             } catch (e) {
-                 throw new Error('APIからの応答が不正です。');
+                 throw new Error('APIからの応答が不正な形式でした。');
             }
 
             if (!response.ok || result.error) {
@@ -469,7 +474,7 @@
             resultDiv.classList.add('hidden');
             
             try {
-                // 変更: リトライロジックを持つ関数を呼び出す
+                // リトライロジックを持つ関数を呼び出す
                 const text = await generateTextWithRetryInternal(originalBase64Data); 
 
                 resultDiv.textContent = text;
