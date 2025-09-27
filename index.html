@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gemini フィギュアジェネレーター</title>
+    <title>Gemini フィギュア＆設定ジェネレーター</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -11,6 +11,7 @@
     <style>
         body {
             font-family: 'M PLUS Rounded 1c', 'Inter', 'Noto Sans JP', sans-serif;
+            /* 背景のアニメーションを強化し、より楽しい雰囲気に */
             background: linear-gradient(135deg, #fffde7, #ffeacc, #fff0e0, #ffe5d9);
             background-size: 400% 400%;
             animation: gradient-animation 15s ease infinite;
@@ -21,6 +22,7 @@
             100% { background-position: 0% 50%; }
         }
         .upload-box {
+            /* 優しいテクスチャを追加 */
             background-image: repeating-linear-gradient(45deg, rgba(255,248,225,0.8) 25%, transparent 25%, transparent 75%, rgba(255,248,225,0.8) 75%, rgba(255,248,225,0.8)), repeating-linear-gradient(45deg, rgba(255,248,225,0.8) 25%, #ffffff 25%, #ffffff 75%, rgba(255,248,225,0.8) 75%, rgba(255,248,225,0.8));
             background-position: 0 0, 10px 10px;
             background-size: 20px 20px;
@@ -32,12 +34,13 @@
             border-color: #FBBF24;
         }
         .banana-loader {
+            /* バナナローダーのアニメーション */
             animation: spin-bounce 2.5s infinite cubic-bezier(0.68, -0.55, 0.27, 1.55);
         }
         @keyframes spin-bounce {
             0%, 100% { transform: rotate(0) scale(1); }
             50% { transform: rotate(180deg) scale(1.2); }
-        }
+            }
         .fade-in-up {
             animation: fadeInUp 0.8s ease-in-out forwards;
         }
@@ -46,6 +49,7 @@
             to { opacity: 1; transform: translateY(0); }
         }
         .main-card {
+            /* カード自体にわずかな浮遊感を追加 */
             animation: float 6s ease-in-out infinite;
         }
         @keyframes float {
@@ -73,6 +77,24 @@
             0% { transform: translateY(-10vh) rotateZ(0deg); opacity: 1; }
             100% { transform: translateY(100vh) rotateZ(720deg); opacity: 0; }
         }
+        .aspect-square {
+            aspect-ratio: 1 / 1;
+        }
+        /* テキスト生成用のローダー */
+        .text-loader {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: inline-block;
+            border: 3px solid #6366f1;
+            border-top-color: transparent;
+            box-sizing: border-box;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
     </style>
 </head>
 <body class="bg-yellow-50 text-gray-800 antialiased overflow-x-hidden">
@@ -80,19 +102,19 @@
     <div class="container mx-auto px-4 py-8 md:py-12">
         <header class="text-center mb-10 md:mb-12">
             <h1 class="text-3xl sm:text-4xl md:text-5xl font-extrabold text-gray-800 flex items-center justify-center gap-2 sm:gap-4 fade-in-up">
-                <span class="text-4xl md:text-5xl transition-transform duration-300 hover:scale-125 hover:rotate-[-25deg] cursor-default">🍌</span>
-                <span class="whitespace-nowrap">Gemini フィギュアジェネレーター</span>
-                <span class="text-4xl md:text-5xl transition-transform duration-300 hover:scale-125 hover:rotate-[25deg] cursor-default">🍌</span>
+                <span class="text-4xl md:text-5xl transition-transform duration-300 hover:scale-125 hover:rotate-[-25deg] cursor-default">🤖</span>
+                <span class="whitespace-nowrap">Gemini フィギュア＆設定ジェネレーター</span>
+                <span class="text-4xl md:text-5xl transition-transform duration-300 hover:scale-125 hover:rotate-[25deg] cursor-default">✨</span>
             </h1>
             <p class="mt-4 text-md md:text-lg text-amber-800 max-w-2xl mx-auto fade-in-up" style="animation-delay: 0.2s;">
-                アップロードした写真が、本物みたいなフィギュアに変身！
+                あなたの写真が、リアルなフィギュアとワクワクするキャラクター設定に！
             </p>
         </header>
         
-        <main class="main-card max-w-4xl mx-auto bg-white/80 backdrop-blur-sm p-6 md:p-8 rounded-3xl shadow-xl mb-12 fade-in-up" style="animation-delay: 0.4s;">
+        <main class="main-card max-w-2xl mx-auto bg-white/80 backdrop-blur-sm p-6 md:p-8 rounded-3xl shadow-xl mb-12 fade-in-up" style="animation-delay: 0.4s;">
             <!-- Step 1: Upload -->
             <div id="upload-section">
-                <h2 class="text-2xl font-bold text-center mb-6 text-gray-700">さあ、やってみよう！</h2>
+                <h2 class="text-2xl font-bold text-center mb-6 text-gray-700">さあ、あなたの写真をアップロード！</h2>
                 <div id="upload-box" class="upload-box relative border-2 border-dashed border-amber-300 rounded-2xl p-8 text-center cursor-pointer hover:border-amber-400">
                     <input type="file" id="image-upload" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" accept="image/png, image/jpeg, image/webp" multiple>
                     <div class="flex flex-col items-center justify-center space-y-4">
@@ -102,20 +124,20 @@
                         <p class="text-gray-600">
                             <span class="font-semibold text-amber-600">クリックしてアップロード</span> または ドラッグ＆ドロップ
                         </p>
-                        <p class="text-sm text-gray-500">複数選択可 (PNG, JPG, WEBP / 各10MBまで)</p>
+                        <p class="text-sm text-gray-500">PNG, JPG, WEBP (最大 10MB) / 複数選択可</p>
                     </div>
                 </div>
             </div>
 
             <!-- Preview and Generate Button -->
             <div id="preview-section" class="hidden mt-8">
-                <h2 class="text-xl font-semibold mb-4 text-center">プレビュー</h2>
-                <div id="preview-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 mb-6 max-h-64 overflow-y-auto bg-gray-50 p-3 rounded-lg">
-                    <!-- Preview images will be injected here by JS -->
+                <h2 class="text-xl font-semibold mb-4 text-center">プレビュー (最大4枚まで表示)</h2>
+                <div id="preview-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 mb-6 max-h-96 overflow-y-auto p-2 bg-gray-100/50 rounded-lg">
+                    <!-- プレビュー画像がここに追加されます -->
                 </div>
                 <div class="text-center">
                     <button id="generate-button" class="bg-gradient-to-r from-yellow-400 to-amber-500 text-white font-bold py-3 px-10 rounded-full shadow-lg hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-amber-400 transition-all duration-300 ease-in-out transform hover:scale-110 hover:-rotate-2 disabled:from-gray-400 disabled:to-gray-500 disabled:cursor-not-allowed disabled:transform-none disabled:shadow-none">
-                        <span id="generate-button-text">フィギュアを生成する</span>
+                        フィギュアを生成する
                     </button>
                 </div>
             </div>
@@ -124,20 +146,27 @@
             <div id="result-section" class="hidden mt-8 text-center">
                 <div id="loading-indicator">
                     <div class="flex flex-col items-center justify-center p-6 space-y-4">
+                        <!-- ローダーの絵文字をより「AI感」のあるものに変更 -->
                         <div class="banana-loader text-6xl">
-                            <span>🍌</span>
+                            <span>🤖</span>
                         </div>
                         <p class="text-gray-600">AIがフィギュアを生成中です... これには1分ほどかかる場合があります。</p>
                     </div>
                 </div>
                 <div id="result-content" class="hidden">
                     <h2 class="text-2xl font-bold mb-6 text-gray-700 flex justify-center items-center gap-2">
-                        <span class="sparkle text-4xl" style="animation-delay: 0s;">✨</span>
-                        <span>完成！</span>
-                        <span class="sparkle text-4xl" style="animation-delay: 0.3s;">✨</span>
+                        <span class="sparkle text-4xl" style="animation-delay: 0s;">🚀</span>
+                        <span>完成！フィギュアと設定を生成できます</span>
+                        <span class="sparkle text-4xl" style="animation-delay: 0.3s;">🎉</span>
                     </h2>
-                    <div id="result-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-                        <!-- Result cards will be injected here by JS -->
+                    <div id="result-grid" class="grid grid-cols-1 sm:grid-cols-2 gap-6 max-h-[60vh] overflow-y-auto p-2 rounded-lg">
+                        <!-- 生成された画像がここに追加されます -->
+                    </div>
+                    <div class="flex flex-col sm:flex-row items-center justify-center gap-3 mt-6">
+                        <button id="share-x-button" class="bg-black text-white font-semibold py-2 px-6 rounded-full hover:bg-gray-800 transition-transform transform hover:scale-105 flex items-center gap-2 w-full sm:w-auto justify-center">
+                            <svg viewBox="0 0 24 24" class="w-5 h-5 fill-current"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"></path></svg>
+                            <span>Xでシェア</span>
+                        </button>
                     </div>
                      <div class="mt-8">
                         <button id="reset-button" class="text-gray-600 font-semibold py-2 px-6 rounded-full hover:bg-gray-200 transition">
@@ -149,7 +178,7 @@
             
             <div id="error-message" class="hidden mt-6 bg-red-100 border-l-4 border-red-500 text-red-700 p-4 rounded-lg" role="alert">
                 <p class="font-bold">おっと！エラーです</p>
-                <p id="error-text"></p>
+                <p id="error-text" class="whitespace-pre-wrap"></p>
             </div>
         </main>
     </div>
@@ -160,7 +189,6 @@
         const previewSection = document.getElementById('preview-section');
         const previewGrid = document.getElementById('preview-grid');
         const generateButton = document.getElementById('generate-button');
-        const generateButtonText = document.getElementById('generate-button-text');
         const resultSection = document.getElementById('result-section');
         const loadingIndicator = document.getElementById('loading-indicator');
         const resultContent = document.getElementById('result-content');
@@ -169,9 +197,11 @@
         const uploadSection = document.getElementById('upload-section');
         const errorMessage = document.getElementById('error-message');
         const errorText = document.getElementById('error-text');
+        const shareXButton = document.getElementById('share-x-button');
         const confettiContainer = document.getElementById('confetti-container');
 
-        let uploadedImages = [];
+        let base64ImagesData = [];
+        const MAX_IMAGES = 4; // 一度に処理できる画像の最大数
 
         ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => uploadBox.addEventListener(eventName, preventDefaults, false));
         function preventDefaults(e) { e.preventDefault(); e.stopPropagation(); }
@@ -181,120 +211,151 @@
         uploadBox.addEventListener('drop', e => handleFiles(e.dataTransfer.files), false);
         imageUpload.addEventListener('change', e => handleFiles(e.target.files));
 
-        async function handleFiles(files) {
-            if (files.length === 0) return;
-            uploadedImages = [];
+        function handleFiles(files) {
+            // 新しいファイル選択時に既存のデータをクリア
+            base64ImagesData = [];
             previewGrid.innerHTML = '';
             errorMessage.classList.add('hidden');
+            errorText.textContent = '';
+            
+            if (files.length === 0) return;
+            
+            const filesToProcess = Array.from(files).slice(0, MAX_IMAGES); // 最大数に制限
+            if (files.length > MAX_IMAGES) {
+                 showError(`一度に処理できるのは${MAX_IMAGES}枚までです。最初の${MAX_IMAGES}枚のみ処理します。`);
+            }
 
-            const filePromises = Array.from(files).map(file => {
+            const filePromises = filesToProcess.map(file => {
                 return new Promise((resolve, reject) => {
                     if (!file.type.startsWith('image/')) {
-                        return reject('画像ファイルのみアップロードできます。');
+                        showError(`「${file.name}」は画像ファイルではありません。スキップします。`);
+                        return resolve(null);
                     }
                     if (file.size > 10 * 1024 * 1024) {
-                        return reject('ファイルサイズは10MB以下にしてください。');
+                        showError(`「${file.name}」はサイズが大きすぎます (最大10MB)。スキップします。`);
+                        return resolve(null);
                     }
+
                     const reader = new FileReader();
                     reader.onload = e => {
-                        uploadedImages.push(e.target.result);
-                        const imgWrapper = document.createElement('div');
-                        imgWrapper.className = "aspect-square p-1 bg-white rounded-lg shadow";
-                        imgWrapper.innerHTML = `<img src="${e.target.result}" class="w-full h-full object-cover rounded-md">`;
-                        previewGrid.appendChild(imgWrapper);
-                        resolve();
+                        const base64Data = e.target.result;
+                        base64ImagesData.push(base64Data);
+                        
+                        const wrapper = document.createElement('div');
+                        wrapper.className = 'relative';
+
+                        const img = document.createElement('img');
+                        img.src = base64Data;
+                        img.alt = file.name;
+                        img.className = "w-full h-auto object-cover rounded-lg shadow-md aspect-square";
+                        
+                        wrapper.appendChild(img);
+                        previewGrid.appendChild(wrapper);
+                        
+                        resolve(base64Data);
                     };
-                    reader.onerror = () => reject('ファイルの読み込みに失敗しました。');
+                    reader.onerror = (err) => {
+                        showError(`「${file.name}」の読み込みに失敗しました。`);
+                        resolve(null);
+                    };
                     reader.readAsDataURL(file);
                 });
             });
 
-            try {
-                await Promise.all(filePromises);
-                uploadSection.classList.add('hidden');
-                previewSection.classList.remove('hidden');
-                resultSection.classList.add('hidden');
-                generateButtonText.textContent = `${uploadedImages.length}枚のフィギュアを生成する`;
-            } catch (error) {
-                showError(error);
-                uploadedImages = [];
-                previewGrid.innerHTML = '';
-            }
+            Promise.all(filePromises).then(results => {
+                // 実際に有効な画像が読み込まれたかチェック
+                if (base64ImagesData.length > 0) {
+                    uploadSection.classList.add('hidden');
+                    previewSection.classList.remove('hidden');
+                    resultSection.classList.add('hidden');
+                } else {
+                     // 処理できる画像が一つもなかった場合
+                     uploadSection.classList.remove('hidden');
+                     previewSection.classList.add('hidden');
+                }
+            });
         }
         
-        function base64ToBlob(base64, mimeType = 'image/png') {
-            const byteCharacters = atob(base64);
-            const byteNumbers = new Array(byteCharacters.length);
-            for (let i = 0; i < byteCharacters.length; i++) {
-                byteNumbers[i] = byteCharacters.charCodeAt(i);
-            }
-            const byteArray = new Uint8Array(byteNumbers);
-            return new Blob([byteArray], { type: mimeType });
-        }
-        
-        generateButton.addEventListener('click', generateAllImages);
+        generateButton.addEventListener('click', generateImagesWithRetry);
 
-        async function generateAllImages() {
-            if (uploadedImages.length === 0) {
+        async function generateImagesWithRetry() {
+             if (base64ImagesData.length === 0) {
                 showError('まず画像をアップロードしてください。');
                 return;
             }
             showLoading(true);
             generateButton.disabled = true;
             resultGrid.innerHTML = '';
+            errorMessage.classList.add('hidden');
+            errorText.textContent = '';
 
-            let successCount = 0;
-            const totalCount = uploadedImages.length;
+            // Promise.allSettledで全ての画像生成を並行して実行
+            const generationPromises = base64ImagesData.map((base64Data, index) => {
+                return generateImageWithRetryInternal(base64Data, index);
+            });
 
-            for (let i = 0; i < totalCount; i++) {
-                loadingIndicator.querySelector('p').textContent = `AIがフィギュアを生成中です (${i + 1}/${totalCount})... これには1分ほどかかる場合があります。`;
-                try {
-                    const imageUrl = await generateSingleImageWithRetry(uploadedImages[i]);
-                    renderResultCard(imageUrl);
-                    successCount++;
-                } catch (error) {
-                    console.error(`Image ${i + 1} generation failed:`, error);
-                    renderErrorCard();
-                }
-            }
+            const results = await Promise.allSettled(generationPromises);
 
-            loadingIndicator.querySelector('p').textContent = `AIがフィギュアを生成中です... これには1分ほどかかる場合があります。`;
+            let hasErrors = false;
+            let errorMessages = [];
             
-            if (successCount > 0) {
-                showLoading(false);
-            } else {
-                showError('すべての画像の生成に失敗しました。');
-                resultSection.classList.add('hidden');
-                previewSection.classList.remove('hidden');
-            }
-            generateButton.disabled = false;
-        }
-
-        async function generateSingleImageWithRetry(base64ImageData) {
-            return new Promise(async (resolve, reject) => {
-                for (let i = 0; i < 3; i++) {
-                    try {
-                        const imageUrl = await callGenerativeApi(base64ImageData);
-                        resolve(imageUrl);
-                        return;
-                    } catch (error) {
-                        console.error(`Attempt ${i + 1} for an image failed:`, error.message);
-                        if (i === 2) {
-                            reject(new Error(`画像の生成に失敗しました: ${error.message}`));
-                        } else {
-                            await new Promise(res => setTimeout(res, Math.pow(2, i) * 1000));
-                        }
-                    }
+            results.forEach((result, index) => {
+                const originalBase64Data = base64ImagesData[index];
+                if (result.status === 'fulfilled') {
+                    const generatedBase64Data = result.value;
+                    const resultElement = createResultCard(generatedBase64Data, originalBase64Data, index);
+                    resultGrid.appendChild(resultElement);
+                } else {
+                    hasErrors = true;
+                    console.error(`Image ${index + 1} failed:`, result.reason);
+                    errorMessages.push(`画像 ${index + 1} の生成に失敗しました: ${result.reason.message || result.reason}`); 
+                    
+                    // エラーメッセージが表示されても、他の結果カードのレイアウトを維持するために、エラー用のプレースホルダーカードを追加
+                    const errorCard = createErrorCard(index);
+                    resultGrid.appendChild(errorCard);
                 }
             });
-        }
 
-        async function callGenerativeApi(base64ImageData) {
-            // プロンプトをよりシンプルで安定性の高いものに変更
-            const prompt = `この写真のキャラクターを、リアルなフィギュアにしてください。フィギュアはシンプルな台座の上に立っており、背景はぼかしてください。1:1の正方形の画像で生成してください。`;
+            showLoading(false);
+            generateButton.disabled = false;
+            
+            if (hasErrors) {
+                showError("一部の画像の生成に失敗しました。詳細をご確認ください。\n" + errorMessages.join('\n'));
+            }
+            
+            // 成功した画像が一つでもあれば紙吹雪を出す
+            if (results.some(r => r.status === 'fulfilled')) {
+                 launchConfetti();
+            }
+        }
+        
+        async function generateImageWithRetryInternal(base64Data, index) {
+            const MAX_RETRIES = 3;
+            for (let i = 0; i < MAX_RETRIES; i++) {
+                try {
+                    const generatedBase64Data = await callImageGenerativeApi(base64Data); 
+                    return generatedBase64Data;
+                } catch (error) {
+                    // 最終リトライでなければ待機して再試行
+                    if (i < MAX_RETRIES - 1) {
+                         // 指数関数的バックオフ (1秒, 2秒, 4秒)
+                        await new Promise(res => setTimeout(res, Math.pow(2, i) * 1000)); 
+                    } else {
+                        throw new Error(`生成が3回失敗しました。元のエラー: ${error.message}`);
+                    }
+                }
+            }
+        }
+        
+        // 画像生成API (gemini-2.5-flash-image-preview)
+        async function callImageGenerativeApi(base64ImageData) {
+            const prompt = `生成される画像のアスペクト比は 1:1 にしてください。写真のキャラクターを、リアルなスタイルと環境で 1/7 スケールの商品化フィギュアの画像を生成してください。フィギュアは、テキストなしの円形透明アクリルベースを使用して、机の上に置いてください。そのフィギュアの横に、元の作品が印刷された立体的なおもちゃのパッケージボックスを置いてください。このパッケージボックスのアートワークは、元の画像をできるだけ忠実に再現したものにしてください。ボックスの下の方には「Made with Gemini」とだけ書かれている。背景にはお洒落なリビングが見える。元の画像にトリミングが必要な余白（黒淵や白淵など）がある場合は、それらを無視（トリミング）して、キャラクター本体をメインに使用してください。`;
+            
             const base64DataWithoutPrefix = base64ImageData.split(',')[1];
+            const mimeType = base64ImageData.split(';')[0].split(':')[1];
+            
             const payload = {
-                contents: [{ parts: [{ text: prompt }, { inlineData: { mimeType: base64ImageData.split(';')[0].split(':')[1], data: base64DataWithoutPrefix } }] }],
+                contents: [{ parts: [{ text: prompt }, { inlineData: { mimeType: mimeType, data: base64DataWithoutPrefix } }] }],
                 generationConfig: { responseModalities: ['TEXT', 'IMAGE'] },
             };
             const apiKey = "";
@@ -302,105 +363,235 @@
 
             const response = await fetch(apiUrl, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
             
-            if (!response.ok) {
-                const errorBody = await response.json().catch(() => ({ error: { message: 'エラーJSONの解析に失敗しました。' } }));
-                console.error('API Error Response:', errorBody);
-                throw new Error(`APIリクエストが失敗しました。時間をおいて再度お試しください。(ステータス: ${response.status})`);
+            let result;
+            try {
+                result = await response.json();
+            } catch (e) {
+                 throw new Error('APIからの応答が不正です。');
+            }
+
+            if (!response.ok || result.error) {
+                 const errorMessage = result.error?.message || `APIリクエストがステータス ${response.status} で失敗しました。`;
+                 throw new Error(errorMessage);
             }
             
-            const result = await response.json();
-
-            if (!result.candidates || result.candidates.length === 0) {
-                console.error('API did not return candidates:', result);
-                if (result.promptFeedback) {
-                    console.error('Prompt Feedback:', result.promptFeedback);
-                    const safetyIssues = result.promptFeedback.safetyRatings?.map(r => r.category).join(', ');
-                    if (safetyIssues) throw new Error(`画像生成が安全上の理由でブロックされました。`);
-                }
-                throw new Error('APIから予期しない応答がありました。');
-            }
-
             const generatedBase64Data = result?.candidates?.[0]?.content?.parts?.find(p => p.inlineData)?.inlineData?.data;
-            if (!generatedBase64Data) {
-                console.error('No image data in API response:', result);
-                const finishReason = result.candidates[0]?.finishReason;
-                if (finishReason === 'SAFETY') {
-                    throw new Error('画像生成が安全上の理由でブロックされました。');
+            if (!generatedBase64Data) throw new Error('APIからの応答に画像データが含まれていませんでした。');
+            
+            return generatedBase64Data;
+        }
+
+        // --- (新規追加) テキスト生成リトライ関数 ---
+        async function generateTextWithRetryInternal(originalBase64Data) {
+            const MAX_RETRIES = 3;
+            for (let i = 0; i < MAX_RETRIES; i++) {
+                try {
+                    const text = await callTextGenerativeApi(originalBase64Data);
+                    return text;
+                } catch (error) {
+                    console.error(`Text generation attempt ${i + 1} failed:`, error);
+                    // 最終リトライでなければ待機して再試行
+                    if (i < MAX_RETRIES - 1) {
+                        await new Promise(res => setTimeout(res, Math.pow(2, i) * 1000));
+                    } else {
+                        // 3回失敗したらエラーをスロー
+                        throw new Error(`テキスト生成が3回失敗しました。元のエラー: ${error.message}`);
+                    }
                 }
-                throw new Error('APIからの応答に画像データが含まれていませんでした。');
+            }
+        }
+        // ----------------------------------------
+
+
+        // テキスト生成API (gemini-2.5-flash-preview-05-20)
+        async function callTextGenerativeApi(base64ImageData) {
+            const prompt = `この画像に写っているキャラクターの「フィギュア商品説明」を作成してください。以下の要素を想像して、クリエイティブに日本語で記述してください：\n\n1.  **キャッチーな二つ名・名前：**（例：「深淵の監視者、アキラ」）\n2.  **キャラクターの背景設定：**（例：失われた王国の最後の生き残り...）\n3.  **スキルや能力：**（例：時を操る剣技...）\n\n情熱的で、魅力的な文章にしてください。`;
+            
+            const base64DataWithoutPrefix = base64ImageData.split(',')[1];
+            const mimeType = base64ImageData.split(';')[0].split(':')[1];
+            
+            const payload = {
+                contents: [
+                    {
+                        role: "user",
+                        parts: [
+                            { text: prompt },
+                            {
+                                inlineData: {
+                                    mimeType: mimeType,
+                                    data: base64DataWithoutPrefix
+                                }
+                            }
+                        ]
+                    }
+                ],
+            };
+            const apiKey = "";
+            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
+
+            const response = await fetch(apiUrl, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+            
+            let result;
+            try {
+                result = await response.json();
+            } catch (e) {
+                 throw new Error('APIからの応答が不正です。');
             }
 
-            const imageBlob = base64ToBlob(generatedBase64Data, 'image/png');
-            return URL.createObjectURL(imageBlob);
-        }
-
-        function renderResultCard(imageUrl) {
-            const card = document.createElement('div');
-            card.className = "bg-white/50 p-4 rounded-xl shadow-lg flex flex-col items-center gap-4";
-            card.innerHTML = `
-                <img src="${imageUrl}" alt="生成されたフィギュア画像" class="w-full object-cover rounded-lg shadow-md aspect-square">
-                <div class="flex items-center justify-center gap-3 w-full">
-                    <a href="${imageUrl}" download="gemini-figure-${Date.now()}.png" class="bg-green-500 text-white font-semibold py-2 px-4 rounded-full hover:bg-green-600 transition-transform transform hover:scale-105 flex items-center gap-2 flex-grow justify-center text-sm">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
-                        <span>保存</span>
-                    </a>
-                    <button class="share-x-button bg-black text-white font-semibold py-2 px-4 rounded-full hover:bg-gray-800 transition-transform transform hover:scale-105 flex items-center gap-2 flex-grow justify-center text-sm">
-                        <svg viewBox="0 0 24 24" class="w-4 h-4 fill-current"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"></path></svg>
-                        <span>シェア</span>
-                    </button>
-                </div>
-            `;
-            resultGrid.appendChild(card);
-        }
-
-        function renderErrorCard() {
-            const card = document.createElement('div');
-            card.className = "bg-red-50 p-4 rounded-xl shadow-lg flex flex-col items-center justify-center gap-4 aspect-square";
-            card.innerHTML = `
-                <svg class="w-12 h-12 text-red-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 3.75h.008v.008H12v-.008Z" />
-                </svg>
-                <p class="text-red-600 font-semibold">生成失敗</p>
-                <p class="text-xs text-red-500">この画像の生成中に<br>エラーが発生しました。</p>
-            `;
-            resultGrid.appendChild(card);
-        }
-
-        resultGrid.addEventListener('click', (e) => {
-            const shareButton = e.target.closest('.share-x-button');
-            if (shareButton) {
-                const shareText = "Geminiフィギュアジェネレーターで素敵な画像を作ったよ！ #Geminiフィギュア #AIアート";
-                const xUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}`;
-                window.open(xUrl, '_blank');
+            if (!response.ok || result.error) {
+                 const errorMessage = result.error?.message || `APIリクエストがステータス ${response.status} で失敗しました。`;
+                 throw new Error(errorMessage);
             }
-        });
+
+            const text = result?.candidates?.[0]?.content?.parts?.[0]?.text;
+            if (!text) throw new Error('APIからの応答にテキストデータが含まれていませんでした。');
+            
+            return text;
+        }
+        
+        // テキスト生成ボタンのハンドラー
+        async function handleGenerateText(originalBase64Data, index) {
+            const button = document.getElementById(`generate-text-button-${index}`);
+            const loading = document.getElementById(`text-loading-${index}`);
+            const resultDiv = document.getElementById(`text-result-${index}`);
+            const resultTitle = document.getElementById(`text-title-${index}`);
+            
+            // 初めて生成する場合はタイトルと結果をクリア
+            if (button.textContent.includes('キャラクター設定を生成')) {
+                resultTitle.classList.add('hidden');
+                resultDiv.textContent = '';
+                resultDiv.classList.add('hidden');
+            }
+
+            button.disabled = true;
+            loading.classList.remove('hidden');
+            resultTitle.classList.add('hidden');
+            resultDiv.classList.add('hidden');
+            
+            try {
+                // 変更: リトライロジックを持つ関数を呼び出す
+                const text = await generateTextWithRetryInternal(originalBase64Data); 
+
+                resultDiv.textContent = text;
+                resultTitle.classList.remove('hidden');
+                resultDiv.classList.remove('hidden');
+                button.textContent = 'もう一度設定を生成する';
+            } catch (error) {
+                console.error("Text generation failed (after retries):", error); // 最終エラーをログ
+                resultDiv.textContent = `テキストの生成に失敗しました。: ${error.message}`;
+                resultTitle.classList.remove('hidden');
+                resultDiv.classList.remove('hidden');
+            } finally {
+                button.disabled = false;
+                loading.classList.add('hidden');
+            }
+        }
+
+        // 結果カード生成（フィギュア画像と設定生成ボタンを含む）
+        function createResultCard(generatedBase64Data, originalBase64Data, index) {
+            const imageUrl = `data:image/png;base64,${generatedBase64Data}`;
+            
+            const card = document.createElement('div');
+            card.className = "bg-white/50 p-4 rounded-xl shadow-lg fade-in-up space-y-4 border border-amber-200";
+            card.style.animationDelay = `${index * 0.1}s`;
+            
+            // 1. 画像表示
+            const img = document.createElement('img');
+            img.src = imageUrl;
+            img.alt = `生成されたフィギュア ${index + 1}`;
+            img.className = "w-full h-auto object-cover rounded-lg shadow-md aspect-square";
+            
+            // 2. 保存ボタン
+            const saveLink = document.createElement('a');
+            saveLink.href = imageUrl;
+            saveLink.download = `gemini-figure-${index + 1}.png`;
+            saveLink.className = "bg-green-500 text-white font-semibold py-2 px-6 rounded-full hover:bg-green-600 transition-transform transform hover:scale-105 flex items-center gap-2 w-full justify-center";
+            saveLink.innerHTML = `
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                <span>フィギュア画像を保存</span>
+            `;
+
+            // --- 設定生成エリア ---
+            const textSection = document.createElement('div');
+            textSection.className = 'bg-yellow-50/70 p-4 rounded-lg space-y-3';
+
+            // 3. テキスト生成ボタン
+            const textGenButton = document.createElement('button');
+            textGenButton.id = `generate-text-button-${index}`;
+            textGenButton.className = "bg-indigo-500 text-white font-semibold py-2 px-6 rounded-full hover:bg-indigo-600 transition-transform transform hover:scale-105 flex items-center gap-2 w-full justify-center disabled:bg-gray-400";
+            textGenButton.innerHTML = `✨ キャラクター設定を生成`;
+            
+            // 4. テキスト生成ローダー
+            const textLoading = document.createElement('div');
+            textLoading.id = `text-loading-${index}`;
+            textLoading.className = "hidden flex items-center justify-center gap-2 text-gray-600";
+            textLoading.innerHTML = `<div class="text-loader"></div> <span>設定を生成中...</span>`;
+
+            // 5. テキスト結果タイトル
+            const textResultTitle = document.createElement('h4');
+            textResultTitle.id = `text-title-${index}`;
+            textResultTitle.className = "hidden text-lg font-bold text-indigo-700 border-b border-indigo-300 pb-1";
+            textResultTitle.textContent = "📖 キャラクター設定";
+
+            // 6. テキスト生成結果表示エリア
+            const textResult = document.createElement('div');
+            textResult.id = `text-result-${index}`;
+            textResult.className = "hidden bg-white/80 p-3 rounded-lg text-left text-sm text-gray-700 whitespace-pre-wrap shadow-inner";
+            
+            textSection.appendChild(textGenButton);
+            textSection.appendChild(textLoading);
+            textSection.appendChild(textResultTitle);
+            textSection.appendChild(textResult);
+
+            
+            card.appendChild(img);
+            card.appendChild(saveLink);
+            card.appendChild(textSection);
+
+            // テキスト生成ボタンのイベントリスナー
+            card.querySelector(`#generate-text-button-${index}`).addEventListener('click', () => handleGenerateText(originalBase64Data, index));
+            
+            return card;
+        }
+
+        // エラー時のプレースホルダーカード
+        function createErrorCard(index) {
+             const card = document.createElement('div');
+             card.className = "bg-red-50/70 p-4 rounded-xl shadow-lg border-2 border-dashed border-red-300 flex flex-col items-center justify-center aspect-square space-y-2";
+             card.innerHTML = `
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10 text-red-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+                <p class="text-red-700 text-sm font-semibold">画像 ${index + 1} の生成に失敗しました</p>
+                <p class="text-xs text-gray-500">上のエラーメッセージを確認してください。</p>
+             `;
+             return card;
+        }
+
 
         function showLoading(isLoading) {
             previewSection.classList.add('hidden');
             resultSection.classList.remove('hidden');
-            errorMessage.classList.add('hidden');
             if (isLoading) {
                 loadingIndicator.classList.remove('hidden');
                 resultContent.classList.add('hidden');
             } else {
                 loadingIndicator.classList.add('hidden');
                 resultContent.classList.remove('hidden');
-                resultContent.classList.add('fade-in-up');
-                launchConfetti();
             }
         }
 
         function launchConfetti() {
-            for (let i = 0; i < 50; i++) {
+            // 紙吹雪を少し豪華に
+            for (let i = 0; i < 70; i++) {
                 const confetti = document.createElement('div');
                 confetti.className = 'confetti-piece';
                 confetti.style.left = `${Math.random() * 100}vw`;
-                confetti.style.animationDelay = `${Math.random() * 2}s`;
-                const colors = ['#ffc107', '#ffeb3b', '#fff176'];
+                confetti.style.animationDelay = `${Math.random() * 3}s`;
+                const colors = ['#ffd700', '#ffeb3b', '#ffc107', '#ff9800', '#fbc02d'];
                 confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
                 confetti.style.transform = `rotate(${Math.random() * 360}deg)`;
                 confetti.style.height = `${Math.random() * 15 + 10}px`;
                 confetti.style.width = `${Math.random() * 5 + 5}px`;
+                confetti.style.opacity = `${Math.random() * 0.5 + 0.5}`;
                 confettiContainer.appendChild(confetti);
 
                 setTimeout(() => {
@@ -410,24 +601,32 @@
         }
         
         function showError(message) {
-            errorText.textContent = message;
+            const currentText = errorText.textContent;
+            // 複数行のエラーメッセージを改行で区切る
+            errorText.textContent = currentText ? `${currentText}\n\n---\n\n${message}` : message;
             errorMessage.classList.remove('hidden');
         }
 
         resetButton.addEventListener('click', () => {
-            uploadedImages = [];
+            base64ImagesData = [];
             imageUpload.value = '';
             previewGrid.innerHTML = '';
             resultGrid.innerHTML = '';
+            
             uploadSection.classList.remove('hidden');
             previewSection.classList.add('hidden');
             resultSection.classList.add('hidden');
             errorMessage.classList.add('hidden');
+            errorText.textContent = '';
             generateButton.disabled = false;
-            resultContent.classList.remove('fade-in-up');
-            generateButtonText.textContent = 'フィギュアを生成する';
         });
+
+        shareXButton.addEventListener('click', () => {
+            const shareText = "Geminiフィギュアジェネレーターで最高のフィギュアとキャラクター設定を作ったよ！キミの推しをフィギュア化してみない？ #Geminiフィギュア #AIアート";
+            const xUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}&url=${encodeURIComponent(window.location.href)}`;
+            window.open(xUrl, '_blank');
+        });
+
     </script>
 </body>
 </html>
-
